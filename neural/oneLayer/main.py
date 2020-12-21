@@ -26,7 +26,7 @@ def generateRandom(row,col):
 
 class NeuralNetwork():
 
-    def __init__(self,inputs):
+    def __init__(self,inputs,numberOfInputs,numberOfPerceptrons):
         self.inputs  = np.array(inputs)
 
 
@@ -34,9 +34,9 @@ class NeuralNetwork():
         # self.thirdLayerWeights = np.random.random_sample(size=(1,2))
         # self.secondLayerBias = np.random.random_sample(size=(2,1))
         # self.thirdLayerBias = np.random.random_sample(size=(1,1))
-        self.secondLayerWeights = generateRandom(2,2)
-        self.thirdLayerWeights = generateRandom(1,2)
-        self.secondLayerBias = generateRandom(2,1)
+        self.secondLayerWeights = generateRandom(numberOfPerceptrons,numberOfInputs)
+        self.thirdLayerWeights = generateRandom(1,numberOfPerceptrons)
+        self.secondLayerBias = generateRandom(numberOfPerceptrons,1)
         self.thirdLayerBias = generateRandom(1,1)
         
 
@@ -83,8 +83,8 @@ class NeuralNetwork():
             (self.train(np.array([[inp.first],[inp.second]]),np.array([[inp.answer]])))
 # inputs = [[[1,0]],[[1,1]],[[0,0]],[[0,1]]]
 # answers = [[1],[0],[0],[1]]
-inputs = [Storage(1,0,1),Storage(1,1,1),Storage(0,0,0),Storage(0,1,1)]
-nn = NeuralNetwork(inputs)
+inputs = [Storage(1,0,0),Storage(1,1,1),Storage(0,0,0),Storage(0,1,0)]
+nn = NeuralNetwork(inputs,2,7)
 for i in range(100000):
     nn.run()
 print(nn.feedForward(np.array([[1],[0]])))
